@@ -1,0 +1,38 @@
+{
+  "name": "pewpew",
+  "version": "0.0.1",
+  "description": "Tryna stuff",
+  "license": "MIT",
+  "author": {
+    "name": "Ross Hadden",
+    "email": "rosshadden@gmail.com"
+  },
+  "scripts": {
+    "build": "webpack --profile -p",
+    "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
+    "count": "find app -name '*.js' | xargs wc -l | sort",
+    "start": "http-server public --silent",
+    "typings": "typings install",
+    "watch": "webpack --progress -w"
+  },
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "phaser": "^2.6.2",
+    "script-loader": "^0.7.0",
+    "super-event-emitter": "^4.1.4",
+    "three": "^0.82.1",
+    "typings": "^2.0.0",
+    "webpack": "^2.1.0-beta"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/piecioshka/boilerplate-phaser-es2016"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0"
+  }
+}
