@@ -11,6 +11,7 @@
     "build": "webpack --profile -p",
     "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
     "count": "find app -name '*.js' | xargs wc -l | sort",
+    "lint": "eslint . || exit 0",
     "start": "http-server public --silent",
     "typings": "typings install",
     "watch": "webpack --progress -w"
@@ -30,9 +31,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/piecioshka/boilerplate-phaser-es2016"
+    "url": "https://github.com/acleverpun/pewpew"
   },
   "devDependencies": {
+    "eslint-config-zipscene": "^0.2.2",
     "http-server": "^0.9.0"
   }
 }

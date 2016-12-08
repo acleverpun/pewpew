@@ -17,7 +17,7 @@ export class ExampleState extends Phaser.State {
 
 		this.map = this.add.tilemap('example-map');
 		this.map.addTilesetImage('background');
-		this.map.setCollision([1]);
+		this.map.setCollision([ 1 ]);
 
 		this.layer = this.map.createLayer('Example Map');
 		this.layer.resizeWorld();
@@ -26,12 +26,11 @@ export class ExampleState extends Phaser.State {
 		this.game.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 
-		this.renderer = new THREE.WebGLRenderer();
+		this.renderer = new THREE.WebGLRenderer({ alpha: true });
 		this.renderer.setSize(width, height);
 		document.body.appendChild(this.renderer.domElement);
 
 		this.three();
-		this.four();
 	}
 
 	update() {
@@ -44,7 +43,6 @@ export class ExampleState extends Phaser.State {
 		// this.game.debug.body(this.game.player);
 
 		this.renderer.render(this.scene, this.camera);
-		const src = this.renderer.domElement.toDataURL('image/jpeg');
 		this.game.player.setTexture(PIXI.Texture.fromCanvas(document.getElementsByTagName('canvas')[1]));
 	}
 
@@ -58,8 +56,5 @@ export class ExampleState extends Phaser.State {
 		this.scene.add(this.cube);
 
 		this.camera.position.z = 5;
-	}
-
-	four() {
 	}
 }
