@@ -1,6 +1,9 @@
 {
 	"extends": "zipscene/environments/node",
 	"env": { "browser": true },
+	"rules": {
+		"prefer-template": 0
+	},
 	"globals": {
 		"Phaser": true,
 		"PIXI": true

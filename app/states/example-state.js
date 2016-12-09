@@ -1,4 +1,5 @@
 const THREE = require('three');
+require('../blend-character');
 import GAME from '../constants/game';
 import PLAYER from '../constants/player';
 import STATE_EVENTS from '../constants/state-events';
@@ -26,17 +27,15 @@ export class ExampleState extends Phaser.State {
 		this.game.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 
-		this.renderer = new THREE.WebGLRenderer({ alpha: true });
-		this.renderer.setSize(width, height);
-		document.body.appendChild(this.renderer.domElement);
-
+		this.clock = new THREE.Clock();
 		this.three();
 	}
 
 	update() {
+		let dt = this.clock.getDelta();
+		if (this.marine.mixer) this.marine.update(dt);
+
 		this.physics.arcade.collide(this.game.player, this.layer);
-		this.cube.rotation.x += 0.1;
-		this.cube.rotation.y += 0.1;
 	}
 
 	render() {
@@ -47,13 +46,23 @@ export class ExampleState extends Phaser.State {
 	}
 
 	three() {
-		this.scene = new THREE.Scene();
-		this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+		this.renderer = new THREE.WebGLRenderer({ alpha: true });
+		this.renderer.setSize(width, height);
+		document.body.appendChild(this.renderer.domElement);
 
-		const geometry = new THREE.BoxGeometry(1, 1, 1);
-		const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-		this.cube = new THREE.Mesh(geometry, material);
-		this.scene.add(this.cube);
+		this.scene = new THREE.Scene();
+		this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+
+		this.marine = new THREE.BlendCharacter();
+		window.marine = this.marine;
+		this.marine.load('assets/models/marine/marine_anims_core.json', () => {
+			const radius = this.marine.geometry.boundingSphere.radius;
+			this.camera.position.set(0.0, radius, radius * 3.5);
+			this.marine.rotation.y = Math.PI * -135 / 180;
+			this.scene.add(this.marine);
+
+			this.marine.play('walk', 1);
+		});
 
 		this.camera.position.z = 5;
 	}
