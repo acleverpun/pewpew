@@ -22,7 +22,8 @@ export class ExampleState extends Phaser.State {
 		this.layer.resizeWorld();
 		// this.layer.debug = true;
 
-		this.game.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
+		this.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
+		window.player = this.player;
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 
 		this.buttons = {
@@ -48,10 +49,10 @@ export class ExampleState extends Phaser.State {
 				}
 			});
 
-			if (this.buttons.up.isDown) this.game.player.y -= 1;
-			if (this.buttons.down.isDown) this.game.player.y += 1;
-			if (this.buttons.left.isDown) this.game.player.x -= 1;
-			if (this.buttons.right.isDown) this.game.player.x += 1;
+			if (this.buttons.up.isDown) this.player.y -= 1;
+			if (this.buttons.down.isDown) this.player.y += 1;
+			if (this.buttons.left.isDown) this.player.x -= 1;
+			if (this.buttons.right.isDown) this.player.x += 1;
 
 			if (!anyDown) rotation = this.marine.rotation.y;
 			this.marine.rotation.y = rotation;
@@ -69,23 +70,24 @@ export class ExampleState extends Phaser.State {
 		let dt = this.clock.getDelta();
 		if (this.marine.mixer) this.marine.update(dt);
 
-		this.physics.arcade.collide(this.game.player, this.layer);
+		this.physics.arcade.collide(this.player, this.layer);
 	}
 
 	render() {
-		// this.game.debug.body(this.game.player);
+		this.game.debug.body(this.player);
 
 		this.renderer.render(this.scene, this.camera);
-		this.game.player.setTexture(PIXI.Texture.fromCanvas(document.getElementsByTagName('canvas')[1]));
+		this.player.setTexture(PIXI.Texture.fromCanvas(document.getElementsByTagName('canvas')[1]));
 	}
 
 	three() {
-		this.renderer = new THREE.WebGLRenderer({ alpha: true });
+		this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 		this.renderer.setSize(width, height);
 		document.body.appendChild(this.renderer.domElement);
 
 		this.scene = new THREE.Scene();
-		this.camera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 1, 10000);
+		this.scene.add(new THREE.AmbientLight(0xffffff));
+		this.camera = new THREE.OrthographicCamera(-width, width, height, -height, 1, 1000);
 
 		this.marine = new THREE.BlendCharacter();
 		window.marine = this.marine;
@@ -94,6 +96,10 @@ export class ExampleState extends Phaser.State {
 			this.camera.position.set(0.0, radius, radius * 3.5);
 			this.scene.add(this.marine);
 
+			this.marine.rotation.x = Math.PI / 4;
+			this.marine.rotation.y = Math.PI;
+			this.marine.position.x = -width + radius / 2;
+			this.marine.position.y = height - radius / 2;
 			this.marine.stopAll();
 			this.marine.play('idle', 1);
 		});
