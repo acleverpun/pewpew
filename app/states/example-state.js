@@ -110,8 +110,10 @@ export class ExampleState extends Phaser.State {
 		this.game.debug.body(this.player2);
 
 		this.renderer.render(this.scene, this.camera);
-		this.player.setTexture(PIXI.Texture.fromCanvas(document.getElementsByTagName('canvas')[1]));
-		this.player2.setTexture(PIXI.Texture.fromCanvas(document.getElementsByTagName('canvas')[1]));
+		const canvas = document.getElementsByTagName('canvas')[1];
+		const baseTexture = PIXI.BaseTexture.fromCanvas(canvas);
+		this.player.setTexture(new PIXI.Texture(baseTexture, new Phaser.Rectangle(0, 0, 50, 100)));
+		this.player2.setTexture(new PIXI.Texture(baseTexture, new Phaser.Rectangle(80, 0, 50, 100)));
 	}
 
 	three() {
