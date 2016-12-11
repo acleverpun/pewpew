@@ -1,13 +1,13 @@
 const THREE = require('three');
 require('../blend-character');
-import PLAYER from '../constants/player';
 import STATE_EVENTS from '../constants/state-events';
-import { Player } from '../models/player';
+import Player from '../models/player';
 
 const width = 300;
 const height = 300;
 
 export class ExampleState extends Phaser.State {
+
 	map = null;
 	layer = null;
 
@@ -21,20 +21,20 @@ export class ExampleState extends Phaser.State {
 		this.layer.resizeWorld();
 		// this.layer.debug = true;
 
-		this.player = new Player(this.game, PLAYER.DEFAULT_X, PLAYER.DEFAULT_Y);
+		this.player = new Player(this.game, new Phaser.Point(96, 32));
 		window.player = this.player;
-		this.player2 = new Player(this.game, PLAYER.DEFAULT_X + 90, PLAYER.DEFAULT_Y + 90);
+		this.player2 = new Player(this.game, new Phaser.Point(256, 64));
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 
 		this.buttons = {
-			up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
-			down: this.input.keyboard.addKey(Phaser.Keyboard.DOWN),
-			left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
-			right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
-			k: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_8),
-			j: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2),
-			h: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_4),
-			l: this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_6),
+			up: this.input.keyboard.addKey(Phaser.Keyboard.K),
+			down: this.input.keyboard.addKey(Phaser.Keyboard.J),
+			left: this.input.keyboard.addKey(Phaser.Keyboard.H),
+			right: this.input.keyboard.addKey(Phaser.Keyboard.L),
+			up2: this.input.keyboard.addKey(Phaser.Keyboard.UP),
+			down2: this.input.keyboard.addKey(Phaser.Keyboard.DOWN),
+			left2: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+			right2: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
 		};
 
 		this.clock = new THREE.Clock();
@@ -47,10 +47,10 @@ export class ExampleState extends Phaser.State {
 		if (this.buttons.left.isDown) this.player.x -= 1;
 		if (this.buttons.right.isDown) this.player.x += 1;
 
-		if (this.buttons.k.isDown) this.player2.y -= 1;
-		if (this.buttons.j.isDown) this.player2.y += 1;
-		if (this.buttons.h.isDown) this.player2.x -= 1;
-		if (this.buttons.l.isDown) this.player2.x += 1;
+		if (this.buttons.up2.isDown) this.player2.y -= 1;
+		if (this.buttons.down2.isDown) this.player2.y += 1;
+		if (this.buttons.left2.isDown) this.player2.x -= 1;
+		if (this.buttons.right2.isDown) this.player2.x += 1;
 
 		if (this.marine.rotation) {
 			let rotation = 0;
@@ -80,7 +80,7 @@ export class ExampleState extends Phaser.State {
 			let rotation = 0;
 			let anyDown = false;
 
-			[ 'k', 'h', 'j', 'l' ].forEach((button, b) => {
+			[ 'up2', 'left2', 'down2', 'right2' ].forEach((button, b) => {
 				if (this.buttons[button].isDown) {
 					anyDown = true;
 					rotation += b * Math.PI / 2;
@@ -112,8 +112,8 @@ export class ExampleState extends Phaser.State {
 		this.renderer.render(this.scene, this.camera);
 		const canvas = document.getElementsByTagName('canvas')[1];
 		const baseTexture = PIXI.BaseTexture.fromCanvas(canvas);
-		this.player.setTexture(new PIXI.Texture(baseTexture, new Phaser.Rectangle(0, 0, 50, 100)));
-		this.player2.setTexture(new PIXI.Texture(baseTexture, new Phaser.Rectangle(80, 0, 50, 100)));
+		this.player.sprite.setTexture(new PIXI.Texture(baseTexture, new Phaser.Rectangle(0, 0, 50, 100)));
+		this.player2.sprite.setTexture(new PIXI.Texture(baseTexture, new Phaser.Rectangle(80, 0, 50, 100)));
 	}
 
 	three() {
@@ -159,4 +159,5 @@ export class ExampleState extends Phaser.State {
 
 		this.camera.position.z = 5;
 	}
+
 }

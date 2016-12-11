@@ -12,6 +12,7 @@
     "clear": "rm -rf node_modules/ npm-debug.log public/dist/ typings/",
     "count": "find app -name '*.js' | xargs wc -l | sort",
     "lint": "eslint . || exit 0",
+    "serve": "for-in 'npm run' start watch",
     "start": "http-server --silent -p 3000 public",
     "typings": "typings install",
     "watch": "webpack --progress -w"
@@ -34,7 +35,7 @@
     "url": "https://github.com/acleverpun/pewpew"
   },
   "devDependencies": {
-    "eslint-config-zipscene": "^0.2.2",
+    "eslint-config-zipscene": "^0.2.3",
     "http-server": "^0.9.0"
   }
 }
