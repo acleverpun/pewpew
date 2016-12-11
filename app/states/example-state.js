@@ -1,5 +1,4 @@
 const THREE = require('three');
-require('../blend-character');
 import STATE_EVENTS from '../constants/state-events';
 import Player from '../models/player';
 
@@ -21,88 +20,29 @@ export class ExampleState extends Phaser.State {
 		this.layer.resizeWorld();
 		// this.layer.debug = true;
 
-		this.player = new Player(this.game, new Phaser.Point(96, 32));
-		window.player = this.player;
-		this.player2 = new Player(this.game, new Phaser.Point(256, 64));
-		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
-
-		this.buttons = {
+		this.player = new Player(this.game, new Phaser.Point(96, 32), {
 			up: this.input.keyboard.addKey(Phaser.Keyboard.K),
 			down: this.input.keyboard.addKey(Phaser.Keyboard.J),
 			left: this.input.keyboard.addKey(Phaser.Keyboard.H),
-			right: this.input.keyboard.addKey(Phaser.Keyboard.L),
-			up2: this.input.keyboard.addKey(Phaser.Keyboard.UP),
-			down2: this.input.keyboard.addKey(Phaser.Keyboard.DOWN),
-			left2: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
-			right2: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
-		};
+			right: this.input.keyboard.addKey(Phaser.Keyboard.L)
+		});
+		window.player = this.player;
 
-		this.clock = new THREE.Clock();
+		this.player2 = new Player(this.game, new Phaser.Point(256, 64), {
+			up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
+			down: this.input.keyboard.addKey(Phaser.Keyboard.DOWN),
+			left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+			right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
+		});
+
+		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
+
 		this.three();
 	}
 
 	update() {
-		if (this.buttons.up.isDown) this.player.y -= 1;
-		if (this.buttons.down.isDown) this.player.y += 1;
-		if (this.buttons.left.isDown) this.player.x -= 1;
-		if (this.buttons.right.isDown) this.player.x += 1;
-
-		if (this.buttons.up2.isDown) this.player2.y -= 1;
-		if (this.buttons.down2.isDown) this.player2.y += 1;
-		if (this.buttons.left2.isDown) this.player2.x -= 1;
-		if (this.buttons.right2.isDown) this.player2.x += 1;
-
-		if (this.marine.rotation) {
-			let rotation = 0;
-			let anyDown = false;
-
-			[ 'up', 'left', 'down', 'right' ].forEach((button, b) => {
-				if (this.buttons[button].isDown) {
-					anyDown = true;
-					rotation += b * Math.PI / 2;
-				}
-			});
-
-			if (!anyDown) rotation = this.marine.rotation.y;
-			this.marine.rotation.y = rotation;
-
-			if (anyDown && this.marine.mixer.clipAction('idle').isRunning()) {
-				this.marine.stopAll();
-				this.marine.play('walk', 1);
-			}
-			if (!anyDown && this.marine.mixer.clipAction('walk').isRunning()) {
-				this.marine.stopAll();
-				this.marine.play('idle', 1);
-			}
-		}
-
-		if (this.marine2.rotation) {
-			let rotation = 0;
-			let anyDown = false;
-
-			[ 'up2', 'left2', 'down2', 'right2' ].forEach((button, b) => {
-				if (this.buttons[button].isDown) {
-					anyDown = true;
-					rotation += b * Math.PI / 2;
-				}
-			});
-
-			if (!anyDown) rotation = this.marine2.rotation.y;
-			this.marine2.rotation.y = rotation;
-
-			if (anyDown && this.marine2.mixer.clipAction('idle').isRunning()) {
-				this.marine2.stopAll();
-				this.marine2.play('walk', 1);
-			}
-			if (!anyDown && this.marine2.mixer.clipAction('walk').isRunning()) {
-				this.marine2.stopAll();
-				this.marine2.play('idle', 1);
-			}
-		}
-
-		let dt = this.clock.getDelta();
-		if (this.marine.mixer) this.marine.update(dt);
-		if (this.marine2.mixer) this.marine2.update(dt);
+		this.player.update();
+		this.player2.update();
 	}
 
 	render() {
@@ -125,36 +65,31 @@ export class ExampleState extends Phaser.State {
 		this.scene.add(new THREE.AmbientLight(0xffffff));
 		this.camera = new THREE.OrthographicCamera(-width, width, height, -height, 1, 1000);
 
-		this.marine = new THREE.BlendCharacter();
-		this.marine2 = new THREE.BlendCharacter();
-		window.marine = this.marine;
-		window.marine2 = this.marine2;
-
 		const origin = { x: -width, y: height };
 
-		this.marine.load('assets/models/marine/marine_anims_core.json', () => {
-			const radius = this.marine.geometry.boundingSphere.radius;
+		this.player.model.load('assets/models/marine/marine_anims_core.json', () => {
+			const radius = this.player.model.geometry.boundingSphere.radius;
 			this.camera.position.set(0.0, radius, radius * 3.5);
-			this.scene.add(this.marine);
+			this.scene.add(this.player.model);
 
-			this.marine.rotation.x = Math.PI / 4;
-			this.marine.rotation.y = Math.PI;
-			this.marine.position.x = origin.x + radius / 2;
-			this.marine.position.y = origin.y - radius / 2;
-			this.marine.stopAll();
-			this.marine.play('idle', 1);
+			this.player.model.rotation.x = Math.PI / 4;
+			this.player.model.rotation.y = Math.PI;
+			this.player.model.position.x = origin.x + radius / 2;
+			this.player.model.position.y = origin.y - radius / 2;
+			this.player.model.stopAll();
+			this.player.model.play('idle', 1);
 		});
 
-		this.marine2.load('assets/models/marine/marine_anims_core.json', () => {
-			const radius = this.marine2.geometry.boundingSphere.radius;
-			this.scene.add(this.marine2);
+		this.player2.model.load('assets/models/marine/marine_anims_core.json', () => {
+			const radius = this.player2.model.geometry.boundingSphere.radius;
+			this.scene.add(this.player2.model);
 
-			this.marine2.rotation.x = Math.PI / 4;
-			this.marine2.rotation.y = Math.PI;
-			this.marine2.position.x = origin.x + radius * 2;
-			this.marine2.position.y = origin.y - radius / 2;
-			this.marine2.stopAll();
-			this.marine2.play('idle', 1);
+			this.player2.model.rotation.x = Math.PI / 4;
+			this.player2.model.rotation.y = Math.PI;
+			this.player2.model.position.x = origin.x + radius * 2;
+			this.player2.model.position.y = origin.y - radius / 2;
+			this.player2.model.stopAll();
+			this.player2.model.play('idle', 1);
 		});
 
 		this.camera.position.z = 5;

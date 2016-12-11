@@ -1,9 +1,12 @@
+const THREE = require('three');
+
 export default class Entity {
 
 	constructor(game, position, key) {
 		this.game = game;
 		this.sprite = new Phaser.Sprite(this.game, position.x, position.y, key);
 		this.game.add.existing(this.sprite);
+		this.clock = new THREE.Clock();
 	}
 
 	get position() { return this.sprite.position; }
