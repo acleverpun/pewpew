@@ -2,8 +2,8 @@ import Entity3 from './entity3';
 
 export default class Player extends Entity3 {
 
-	constructor(game, position, buttons, key = 'player') {
-		super(game, position, key);
+	constructor(game, scene, position, file, buttons, key = 'player') {
+		super(game, scene, position, file, key);
 		this.buttons = buttons;
 	}
 
@@ -13,7 +13,7 @@ export default class Player extends Entity3 {
 		if (this.buttons.left.isDown) this.x -= 1;
 		if (this.buttons.right.isDown) this.x += 1;
 
-		if (this.model.rotation) {
+		if (this.isLoaded) {
 			let rotation = 0;
 			let anyDown = false;
 
@@ -38,7 +38,7 @@ export default class Player extends Entity3 {
 		}
 
 		let dt = this.clock.getDelta();
-		if (this.model.mixer) this.model.update(dt);
+		if (this.isLoaded) this.model.update(dt);
 	}
 
 }

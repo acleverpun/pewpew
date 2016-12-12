@@ -20,7 +20,10 @@ export class ExampleState extends Phaser.State {
 		this.layer.resizeWorld();
 		// this.layer.debug = true;
 
-		this.player = new Player(this.game, new Phaser.Point(96, 32), {
+		this.three();
+
+		const modelFile = 'assets/models/marine/marine_anims_core.json';
+		this.player = new Player(this.game, this.scene, new Phaser.Point(96, 32), modelFile, {
 			up: this.input.keyboard.addKey(Phaser.Keyboard.K),
 			down: this.input.keyboard.addKey(Phaser.Keyboard.J),
 			left: this.input.keyboard.addKey(Phaser.Keyboard.H),
@@ -28,7 +31,7 @@ export class ExampleState extends Phaser.State {
 		});
 		window.player = this.player;
 
-		this.player2 = new Player(this.game, new Phaser.Point(256, 64), {
+		this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile, {
 			up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
 			down: this.input.keyboard.addKey(Phaser.Keyboard.DOWN),
 			left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
@@ -36,8 +39,6 @@ export class ExampleState extends Phaser.State {
 		});
 
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
-
-		this.three();
 	}
 
 	update() {
@@ -64,35 +65,7 @@ export class ExampleState extends Phaser.State {
 		this.scene = new THREE.Scene();
 		this.scene.add(new THREE.AmbientLight(0xffffff));
 		this.camera = new THREE.OrthographicCamera(-width, width, height, -height, 1, 1000);
-
-		const origin = { x: -width, y: height };
-
-		this.player.model.load('assets/models/marine/marine_anims_core.json', () => {
-			const radius = this.player.model.geometry.boundingSphere.radius;
-			this.camera.position.set(0.0, radius, radius * 3.5);
-			this.scene.add(this.player.model);
-
-			this.player.model.rotation.x = Math.PI / 4;
-			this.player.model.rotation.y = Math.PI;
-			this.player.model.position.x = origin.x + radius / 2;
-			this.player.model.position.y = origin.y - radius / 2;
-			this.player.model.stopAll();
-			this.player.model.play('idle', 1);
-		});
-
-		this.player2.model.load('assets/models/marine/marine_anims_core.json', () => {
-			const radius = this.player2.model.geometry.boundingSphere.radius;
-			this.scene.add(this.player2.model);
-
-			this.player2.model.rotation.x = Math.PI / 4;
-			this.player2.model.rotation.y = Math.PI;
-			this.player2.model.position.x = origin.x + radius * 2;
-			this.player2.model.position.y = origin.y - radius / 2;
-			this.player2.model.stopAll();
-			this.player2.model.play('idle', 1);
-		});
-
-		this.camera.position.z = 5;
+		this.camera.position.set(0.0, 100, 400);
 	}
 
 }
