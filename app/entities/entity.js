@@ -3,4 +3,6 @@ export default class Entity {
 		this.game = game;
 		this.components = {};
 	}
+
+	has() {}
 }

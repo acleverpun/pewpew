@@ -1,6 +1,7 @@
 const THREE = require('three');
 import STATE_EVENTS from '../constants/state-events';
-import Player from '../models/player';
+import Secs from '../secs/secs';
+import Player from '../entities/player';
 
 const width = 300;
 const height = 300;
@@ -10,6 +11,8 @@ export default class ExampleState extends Phaser.State {
 	layer = null;
 
 	create() {
+		this.secs = new Secs();
+
 		window.PEW.state = this;
 		this.map = this.add.tilemap('example-map');
 		this.map.addTilesetImage('background');
