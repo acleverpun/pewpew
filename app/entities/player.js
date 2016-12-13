@@ -1,10 +1,26 @@
-import Entity3 from './entity3';
+import Entity from './entity';
 
-export default class Player extends Entity3 {
+let ctr = 0;
 
-	constructor(game, scene, position, file, buttons, key = 'player') {
-		super(game, scene, position, file, key);
-		this.buttons = buttons;
+export default class Player extends Entity {
+	constructor(...args) {
+		super(...args);
+
+		this.buttons = {
+			up: this.game.input.keyboard.addKey(Phaser.Keyboard.K),
+			down: this.game.input.keyboard.addKey(Phaser.Keyboard.J),
+			left: this.game.input.keyboard.addKey(Phaser.Keyboard.H),
+			right: this.game.input.keyboard.addKey(Phaser.Keyboard.L)
+		};
+
+		if (ctr++ === 1) {
+			this.buttons = {
+				up: this.game.input.keyboard.addKey(Phaser.Keyboard.UP),
+				down: this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
+				left: this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+				right: this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
+			};
+		}
 	}
 
 	update() {
@@ -40,5 +56,4 @@ export default class Player extends Entity3 {
 		let dt = this.clock.getDelta();
 		if (this.isLoaded) this.model.update(dt);
 	}
-
 }

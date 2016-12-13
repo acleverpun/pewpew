@@ -23,20 +23,10 @@ export class ExampleState extends Phaser.State {
 		this.three();
 
 		const modelFile = 'assets/models/marine/marine_anims_core.json';
-		this.player = new Player(this.game, this.scene, new Phaser.Point(96, 32), modelFile, {
-			up: this.input.keyboard.addKey(Phaser.Keyboard.K),
-			down: this.input.keyboard.addKey(Phaser.Keyboard.J),
-			left: this.input.keyboard.addKey(Phaser.Keyboard.H),
-			right: this.input.keyboard.addKey(Phaser.Keyboard.L)
-		});
+		this.player = new Player(this.game, this.scene, new Phaser.Point(96, 32), modelFile);
 		window.player = this.player;
 
-		this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile, {
-			up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
-			down: this.input.keyboard.addKey(Phaser.Keyboard.DOWN),
-			left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
-			right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
-		});
+		this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile);
 
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 	}
