@@ -1,8 +1,8 @@
 import STATE_EVENTS from './constants/state-events';
 
-import { BootstrapState } from './states/bootstrap-state';
-import { LoadingState } from './states/loading-state';
-import { ExampleState } from './states/example-state';
+import BootstrapState from './states/bootstrap-state';
+import LoadingState from './states/loading-state';
+import ExampleState from './states/example-state';
 
 export class StateManager {
 	game = null;

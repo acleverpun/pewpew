@@ -5,13 +5,12 @@ import Player from '../models/player';
 const width = 300;
 const height = 300;
 
-export class ExampleState extends Phaser.State {
-
+export default class ExampleState extends Phaser.State {
 	map = null;
 	layer = null;
 
 	create() {
-		window.state = this;
+		window.PEW.state = this;
 		this.map = this.add.tilemap('example-map');
 		this.map.addTilesetImage('background');
 		this.map.setCollision([ 1 ]);
@@ -24,7 +23,7 @@ export class ExampleState extends Phaser.State {
 
 		const modelFile = 'assets/models/marine/marine_anims_core.json';
 		this.player = new Player(this.game, this.scene, new Phaser.Point(96, 32), modelFile);
-		window.player = this.player;
+		window.PEW.player = this.player;
 
 		this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile);
 
@@ -57,5 +56,4 @@ export class ExampleState extends Phaser.State {
 		this.camera = new THREE.OrthographicCamera(-width, width, height, -height, 1, 1000);
 		this.camera.position.set(0.0, 100, 400);
 	}
-
 }
