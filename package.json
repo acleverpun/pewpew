@@ -18,24 +18,24 @@
     "watch": "webpack --progress -w"
   },
   "dependencies": {
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.8",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2016": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
+    "lodash": "^4.17.2",
     "phaser": "^2.6.2",
-    "script-loader": "^0.7.0",
     "super-event-emitter": "^4.1.4",
-    "three": "^0.82.1",
-    "typings": "^2.0.0",
-    "webpack": "^2.1.0-beta"
+    "three": "^0.82.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/acleverpun/pewpew"
   },
   "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-preset-env": "^1.0.2",
     "eslint-config-zipscene": "^0.2.3",
-    "http-server": "^0.9.0"
+    "http-server": "^0.9.0",
+    "script-loader": "^0.7.0",
+    "typings": "^2.0.0",
+    "webpack": "^1.14.0"
   }
 }

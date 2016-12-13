@@ -1,7 +1,11 @@
 {
-    "presets": [
-        "es2015",
-        "es2016",
-        "stage-0"
-    ]
+	"presets": [
+		[ "env", {
+			"targets": {
+				"chrome": 54,
+				"node": true
+			}
+		} ]
+	],
+	"plugins": [ "transform-class-properties" ]
 }
