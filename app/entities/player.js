@@ -1,5 +1,6 @@
 const THREE = require('three');
 import Entity from './entity';
+import Model from '../display/model';
 
 let ctr = 0;
 
@@ -23,6 +24,8 @@ export default class Player extends Entity {
 				right: this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
 			};
 		}
+
+		this.set(new Model());
 	}
 
 	update() {

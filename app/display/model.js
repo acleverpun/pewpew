@@ -7,11 +7,11 @@ let ctr = 0;
 
 export default class Model {
 	constructor(game, scene, file) {
-		this.scene = scene;
-		this.model = new THREE.BlendCharacter();
-		this.isLoaded = false;
-
-		this.model.load(file, () => this.init());
+		// this.scene = scene;
+		// this.model = new THREE.BlendCharacter();
+		// this.isLoaded = false;
+    //
+		// this.model.load(file, () => this.init());
 	}
 
 	init() {
