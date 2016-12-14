@@ -1,3 +1,4 @@
+const THREE = require('three');
 import Entity from './entity';
 
 let ctr = 0;
@@ -5,6 +6,7 @@ let ctr = 0;
 export default class Player extends Entity {
 	constructor(...args) {
 		super(...args);
+		this.clock = new THREE.Clock();
 
 		this.buttons = {
 			up: this.game.input.keyboard.addKey(Phaser.Keyboard.K),

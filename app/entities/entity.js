@@ -9,7 +9,7 @@ export default class Entity {
 		this.game = game;
 		this.id = this.constructor.uuid();
 		this.components = {};
-		this.addMultiple(components);
+		// this.addMultiple(components);
 	}
 
 	init() {}
