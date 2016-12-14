@@ -10,6 +10,8 @@ export default class System {
 		this.entities = new Map();
 	}
 
+	init() {}
+
 	get(id) { return this.entities.get(id); }
 
 	getAll() { return this.entities; }
@@ -27,12 +29,8 @@ export default class System {
 	}
 
 	remove(entity) {
-		for (let [ id, ent ] of this.entities) {
-			if (entity === ent || entity === id) {
-				this.entities.delete(id);
-				break;
-			}
-		}
+		if (typeof entity === 'object') entity = entity.id;
+		this.entities.delete(entity);
 		return this;
 	}
 
@@ -42,9 +40,8 @@ export default class System {
 	}
 
 	has(entity) {
-		if (typeof entity === 'string') return this.entities.has(entity);
-		for (let [ , ent ] of this.entities) if (entity === ent) return true;
-		return false;
+		if (typeof entity === 'object') entity = entity.id;
+		return this.entities.has(entity);
 	}
 
 	hasAll(...entities) {
@@ -66,11 +63,14 @@ export default class System {
 	}
 
 	toggle(active) {
-		this.active = (typeof active === 'boolean') ? active : !this.active;
-		return this.active;
+		return (this.active = (typeof active === 'boolean') ? active : !this.active);
 	}
 
 	start() { return this.toggle(true); }
 
 	stop() { return this.toggle(false); }
+
+	// update() {}
+
+	// render() {}
 }
