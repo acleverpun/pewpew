@@ -1,7 +1,12 @@
+import siren from '../services/siren';
+
 export default class Secs {
 	constructor() {
 		this.systems = new Map();
 		this.entities = new Map();
+
+		siren.on('entity.component.add', (...args) => this.onUpdateComponent(...args));
+		siren.on('entity.component.remove', (...args) => this.onUpdateComponent(...args));
 	}
 
 	addSystem(system) {
