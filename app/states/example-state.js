@@ -27,19 +27,22 @@ export default class ExampleState extends Phaser.State {
 
 		const modelFile = 'assets/models/marine/marine_anims_core.json';
 		this.player = new Player(this.game, {
-			model: new Model(this.game, this.scene, modelFile),
-			position: new Phaser.Point(96, 32)
+			position: new Phaser.Point(96, 32),
+			model: new Model(this.scene, modelFile)
 		});
 		window.PEW.player = this.player;
 
-		// this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile);
+		this.player2 = new Player(this.game, {
+			position: new Phaser.Point(256, 64),
+			model: new Model(this.scene, modelFile)
+		});
 
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 	}
 
 	update() {
-		// this.player.update();
-		// this.player2.update();
+		this.player.update();
+		this.player2.update();
 	}
 
 	render() {

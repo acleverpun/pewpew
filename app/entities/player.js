@@ -25,7 +25,7 @@ export default class Player extends Entity {
 			};
 		}
 
-		this.set(new Model());
+		// this.add(new Model());
 	}
 
 	update() {

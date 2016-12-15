@@ -36,6 +36,7 @@ export default class Entity {
 		}
 		let isNew = !this.has(key);
 		this.components[key] = component;
+		if (typeof component.apply === 'function') component.apply(this, key);
 		if (isNew) siren.emit('entity.component.add', this, key);
 		return this;
 	}
