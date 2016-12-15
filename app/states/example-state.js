@@ -2,6 +2,7 @@ const THREE = require('three');
 import STATE_EVENTS from '../constants/state-events';
 import Secs from '../secs/secs';
 import Player from '../entities/player';
+import Model from '../display/model';
 
 const width = 300;
 const height = 300;
@@ -25,22 +26,25 @@ export default class ExampleState extends Phaser.State {
 		this.three();
 
 		const modelFile = 'assets/models/marine/marine_anims_core.json';
-		this.player = new Player(this.game, this.scene, new Phaser.Point(96, 32), modelFile);
+		this.player = new Player(this.game, {
+			model: new Model(this.game, this.scene, modelFile),
+			position: new Phaser.Point(96, 32)
+		});
 		window.PEW.player = this.player;
 
-		this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile);
+		// this.player2 = new Player(this.game, this.scene, new Phaser.Point(256, 64), modelFile);
 
 		this.game.trigger(STATE_EVENTS.EXAMPLE_COMPLETED);
 	}
 
 	update() {
-		this.player.update();
-		this.player2.update();
+		// this.player.update();
+		// this.player2.update();
 	}
 
 	render() {
-		this.game.debug.body(this.player);
-		this.game.debug.body(this.player2);
+		// this.game.debug.body(this.player);
+		// this.game.debug.body(this.player2);
 
 		this.renderer.render(this.scene, this.camera);
 		const canvas = document.getElementsByTagName('canvas')[1];

@@ -61,7 +61,6 @@ export default class Secs {
 	}
 
 	onUpdateComponent(entity, componentName) {
-		console.log('onUpdateComponent', entity, componentName);
 		for (let [ criteria, system ] of this.systems) if (criteria.involves(componentName)) system.sync(entity);
 	}
 }

@@ -10,7 +10,7 @@ export default class Model {
 		// this.scene = scene;
 		// this.model = new THREE.BlendCharacter();
 		// this.isLoaded = false;
-    //
+		//
 		// this.model.load(file, () => this.init());
 	}
 
