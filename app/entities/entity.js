@@ -8,8 +8,7 @@ export default class Entity {
 		return `${Date.now()}|${Math.floor(Math.random() * 100000000)}|${this.count++}`;
 	}
 
-	constructor(game, components) {
-		this.game = game;
+	constructor(components) {
 		this.id = this.constructor.uuid();
 		this.components = {};
 		this.addAll(components);

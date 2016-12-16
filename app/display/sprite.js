@@ -1,11 +1,12 @@
+import game from './services/game';
+
 export default class Sprite {
-	constructor(game, position, key) {
-		this.game = game;
-		this.sprite = new Phaser.Sprite(this.game, position.x, position.y, key);
+	constructor(position, key) {
+		this.sprite = new Phaser.Sprite(game, position.x, position.y, key);
 		// this.init();
 	}
 
 	init() {
-		this.game.add.existing(this.sprite);
+		game.add.existing(this.sprite);
 	}
 }

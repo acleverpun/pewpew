@@ -1,5 +1,6 @@
 const THREE = require('three');
 import Entity from './entity';
+import game from '../services/game';
 import Model from '../display/model';
 
 let ctr = 0;
@@ -10,18 +11,18 @@ export default class Player extends Entity {
 		this.clock = new THREE.Clock();
 
 		this.buttons = {
-			up: this.game.input.keyboard.addKey(Phaser.Keyboard.K),
-			down: this.game.input.keyboard.addKey(Phaser.Keyboard.J),
-			left: this.game.input.keyboard.addKey(Phaser.Keyboard.H),
-			right: this.game.input.keyboard.addKey(Phaser.Keyboard.L)
+			up: game.input.keyboard.addKey(Phaser.Keyboard.K),
+			down: game.input.keyboard.addKey(Phaser.Keyboard.J),
+			left: game.input.keyboard.addKey(Phaser.Keyboard.H),
+			right: game.input.keyboard.addKey(Phaser.Keyboard.L)
 		};
 
 		if (ctr++ === 1) {
 			this.buttons = {
-				up: this.game.input.keyboard.addKey(Phaser.Keyboard.UP),
-				down: this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
-				left: this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
-				right: this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
+				up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
+				down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
+				left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+				right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
 			};
 		}
 

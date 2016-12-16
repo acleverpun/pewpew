@@ -26,13 +26,13 @@ export default class ExampleState extends Phaser.State {
 		this.three();
 
 		const modelFile = 'assets/models/marine/marine_anims_core.json';
-		this.player = new Player(this.game, {
+		this.player = new Player({
 			position: new Phaser.Point(96, 32),
 			model: new Model(this.scene, modelFile)
 		});
 		window.PEW.player = this.player;
 
-		this.player2 = new Player(this.game, {
+		this.player2 = new Player({
 			position: new Phaser.Point(256, 64),
 			model: new Model(this.scene, modelFile)
 		});
