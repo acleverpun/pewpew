@@ -20,6 +20,7 @@ export default class System {
 
 	add(entity) {
 		this.entities.set(entity.id, entity);
+		if (typeof this.onAdd === 'function') this.onAdd(entity);
 		return this;
 	}
 
@@ -30,6 +31,7 @@ export default class System {
 
 	remove(entity) {
 		if (typeof entity === 'object') entity = entity.id;
+		if (typeof this.onRemove === 'function') this.onRemove(entity);
 		this.entities.delete(entity);
 		return this;
 	}

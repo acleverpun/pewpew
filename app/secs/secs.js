@@ -50,7 +50,7 @@ export default class Secs {
 
 	update(dt) {
 		for (let [ , system ] of this.systems) {
-			if (typeof system.update === 'function' && !system.active && system.entities.size) system.update();
+			if (typeof system.update === 'function' && system.active && system.entities.size) system.update();
 		}
 	}
 

@@ -1,6 +1,8 @@
 const THREE = require('three');
 import STATE_EVENTS from '../constants/state-events';
 import Secs from '../secs/secs';
+import Render3System from '../systems/render3';
+import RenderSystem from '../systems/render';
 import Player from '../entities/player';
 import Model from '../display/model';
 
@@ -25,6 +27,9 @@ export default class ExampleState extends Phaser.State {
 
 		this.three();
 
+		this.secs.addSystem(new RenderSystem());
+		this.secs.addSystem(new Render3System());
+
 		const modelFile = 'assets/models/marine/marine_anims_core.json';
 		this.player = new Player({
 			position: new Phaser.Point(96, 32),
@@ -41,13 +46,14 @@ export default class ExampleState extends Phaser.State {
 	}
 
 	update() {
+		this.secs.update();
+
 		this.player.update();
 		this.player2.update();
 	}
 
 	render() {
-		// this.game.debug.body(this.player);
-		// this.game.debug.body(this.player2);
+		this.secs.render();
 
 		this.renderer.render(this.scene, this.camera);
 		const canvas = document.getElementsByTagName('canvas')[1];
