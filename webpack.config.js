@@ -3,7 +3,7 @@
 module.exports = {
 	entry: {
 		game: './app/main',
-		phaser: './node_modules/phaser/build/phaser'
+		phaser: './node_modules/phaser-ce/build/phaser'
 	},
 
 	output: {

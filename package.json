@@ -13,13 +13,13 @@
     "count": "find app -name '*.js' | xargs wc -l | sort",
     "lint": "eslint . || exit 0",
     "serve": "for-in 'npm run' start watch",
-    "start": "http-server --silent -p 3000 public",
+    "start": "http-server --silent -p 8888 public",
     "typings": "typings install",
     "watch": "webpack --progress -w"
   },
   "dependencies": {
     "lodash": "^4.17.2",
-    "phaser": "^2.6.2",
+    "phaser-ce": "^2.7.2",
     "super-event-emitter": "^4.1.4",
     "three": "^0.82.1"
   },
