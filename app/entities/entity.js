@@ -1,15 +1,10 @@
 const _ = require('lodash');
+const uuid = require('uuid');
 import siren from '../services/siren';
 
 export default class Entity {
-	static count = 0;
-
-	static uuid() {
-		return `${Date.now()}|${Math.floor(Math.random() * 100000000)}|${this.count++}`;
-	}
-
 	constructor(components) {
-		this.id = this.constructor.uuid();
+		this.id = uuid();
 		this.components = {};
 		this.addAll(components);
 	}

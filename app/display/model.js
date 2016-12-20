@@ -8,25 +8,25 @@ let ctr = 0;
 export default class Model {
 	constructor(scene, file) {
 		this.scene = scene;
-		this.model = new THREE.BlendCharacter();
+		this.value = new THREE.BlendCharacter();
 		this.isLoaded = false;
 
-		this.model.load(file, () => this.init());
+		this.value.load(file, () => this.init());
 	}
 
 	init() {
 		const origin = { x: -width, y: height };
 
-		const radius = this.model.geometry.boundingSphere.radius;
-		this.scene.add(this.model);
+		const radius = this.value.geometry.boundingSphere.radius;
+		this.scene.add(this.value);
 
-		this.model.rotation.x = Math.PI / 4;
-		this.model.rotation.y = Math.PI;
-		this.model.position.x = origin.x + radius / 2;
-		if (ctr++ === 1) this.model.position.x = origin.x + radius * 2;
-		this.model.position.y = origin.y - radius / 2;
-		this.model.stopAll();
-		this.model.play('idle', 1);
+		this.value.rotation.x = Math.PI / 4;
+		this.value.rotation.y = Math.PI;
+		this.value.position.x = origin.x + radius / 2;
+		if (ctr++ === 1) this.value.position.x = origin.x + radius * 2;
+		this.value.position.y = origin.y - radius / 2;
+		this.value.stopAll();
+		this.value.play('idle', 1);
 
 		this.isLoaded = true;
 	}
